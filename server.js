@@ -8,7 +8,7 @@ import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoute.js";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+import { dirname, join } from "path";
 
 dotenv.config();
 
@@ -21,15 +21,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(express.static(path.join(__dirname, "./client/build")));
+
+// Join the paths using the imported 'join' function
+app.use(express.static(join(__dirname, "client", "build")));
 
 app.use("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "/client/build"));
+  // Use 'join' for file paths
+  res.sendFile(join(__dirname, "client", "build", "index.html"));
 });
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
+
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
