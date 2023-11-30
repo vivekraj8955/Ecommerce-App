@@ -106,7 +106,6 @@ const ProductDetails = () => {
                   <button
                     className="btn btn-dark ms-1"
                     onClick={() => {
-                      // Update state and use the callback version of setCart to ensure correct state
                       setCart((prevCart) => {
                         const updatedCart = [...prevCart, p];
                         localStorage.setItem(
@@ -115,8 +114,6 @@ const ProductDetails = () => {
                         );
                         return updatedCart;
                       });
-
-                      toast.success("Item Added to cart");
                     }}
                   >
                     ADD TO CART
